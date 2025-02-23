@@ -1,6 +1,5 @@
-Here is a `README.md` file for your project:
 
-```markdown
+
 # AI SQL Generator Project
 
 ## Overview
@@ -72,4 +71,4 @@ To generate and execute an SQL query, send a POST request to the appropriate end
 - Spring Boot for the application framework.
 - SQLite for the database.
 
-```
+
