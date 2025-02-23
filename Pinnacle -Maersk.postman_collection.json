@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "99577bf4-7a5d-4995-891a-1746db6bc975",
+		"name": "Pinnacle -Maersk",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31916020"
+	},
+	"item": [
+		{
+			"name": "AI_sql_query_generation",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"question\": \"Which seller has delivered the most orders to customers in Rio de Janeiro? [string: seller_id]\"\n    // \"What's the average review score for products in the 'beleza_saude' category? [float: score]\"\n    // \"How many sellers have completed orders worth more than 100,000 BRL in total? [integer: count]\"\n    // \"Which product category has the highest rate of 5-star reviews? [string: category_name]\"\n    // \"What's the most common payment installment count for orders over 1000 BRL? [integer: installments]\"\n    // \"Which city has the highest average freight value per order? [string: city_name]\"\n    // \"What's the most expensive product category based on average price? [string: category_name]\"\n    // \"Which product category has the shortest average delivery time? [string: category_name]\"\n    // \"How many orders have items from multiple sellers? [integer: count]\"\n    // \"What percentage of orders are delivered before the estimated delivery date? [float: percentage]\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8086/api/v1/query",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8086",
+					"path": [
+						"api",
+						"v1",
+						"query"
+					],
+					"query": [
+						{
+							"key": "question",
+							"value": "Which seller has delivered the most orders to customers in Rio de Janeiro",
+							"disabled": true
+						},
+						{
+							"key": "question",
+							"value": "What's the average review score for products in the 'beleza_saude' category? [float: score]",
+							"disabled": true
+						},
+						{
+							"key": "question",
+							"value": "How many sellers have completed orders worth more than 100,000 BRL in total? [integer: count]",
+							"disabled": true
+						},
+						{
+							"key": "question",
+							"value": "Which product category has the highest rate of 5-star reviews? [string: category_name]",
+							"disabled": true
+						},
+						{
+							"key": "question",
+							"value": "What's the most common payment installment count for orders over 1000 BRL? [integer: installments]",
+							"disabled": true
+						},
+						{
+							"key": "question",
+							"value": "Which city has the highest average freight value per order? [string: city_name]",
+							"disabled": true
+						},
+						{
+							"key": "question",
+							"value": "What's the most expensive product category based on average price? [string: category_name]",
+							"disabled": true
+						},
+						{
+							"key": "question",
+							"value": "Which product category has the shortest average delivery time? [string: category_name]",
+							"disabled": true
+						},
+						{
+							"key": "question",
+							"value": "How many orders have items from multiple sellers? [integer: count]",
+							"disabled": true
+						},
+						{
+							"key": "question",
+							"value": "What percentage of orders are delivered before the estimated delivery date? [float: percentage]",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
