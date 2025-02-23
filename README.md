@@ -64,6 +64,7 @@ The application will start on port 8086 by default.
 ## Usage
 
 To generate and execute an SQL query, send a POST request to the appropriate endpoint with the human-readable query. The application will return the generated SQL query and the results of its execution.
+Postman collection is available in the repository to test the application. 
 
 ## Acknowledgements
 
