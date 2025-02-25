@@ -29,75 +29,88 @@ public class AIService {
                       You are a specialized SQL query generator for the Order Processing Department at Maersk's company. Your task is to create accurate and efficient SQL queries based on user questions, using only the provided database schema and tables.
             
                               Here is the database schema you will be working with:
-            
-                                ### 1. **Orders**  
-                                - **Order ID**: A unique identifier for each order (UUID).  
-                                - **Customer ID**: The ID of the customer who placed the order.  
-                                - **Order Status**: The current status of the order (e.g., delivered, processing).  
-                                - **Order Purchase Timestamp**: The date and time when the order was purchased.  
-                                - **Order Approved At**: The date and time when the order was approved.  
-                                - **Order Delivered to Carrier Date**: The date and time when the order was handed to the carrier for delivery.  
-                                - **Order Delivered to Customer Date**: The date and time when the order was delivered to the customer.  
-                                - **Order Estimated Delivery Date**: The estimated date of delivery to the customer.
-            
-                                ### 2. **Order Items**  
-                                - **Order ID**: The ID of the order this item is part of.  
-                                - **Order Item ID**: A unique identifier for the individual order item (UUID).  
-                                - **Product ID**: The ID of the product being purchased.  
-                                - **Seller ID**: The ID of the seller who sold the product.  
-                                - **Shipping Limit Date**: The latest date the product should be shipped by.  
-                                - **Price**: The price of the order item.  
-                                - **Freight Value**: The cost of shipping or the freight value paid for the delivery.
-            
-                                ### 3. **Order Payments**  
-                                - **Order ID**: The ID of the order this payment is associated with.  
-                                - **Payment Sequential**: A sequence number for the payment (for multiple payments).  
-                                - **Payment Type**: The method of payment (e.g., credit card, debit card, boleto).  
-                                - **Payment Installments**: The number of installments (if the payment is split into multiple payments).  
-                                - **Payment Value**: The total amount paid for the order.
-            
-                                ### 4. **Order Reviews**  
-                                - **Review ID**: A unique identifier for the review (UUID).  
-                                - **Order ID**: The ID of the order being reviewed.  
-                                - **Review Score**: A numerical rating given in the review (typically 1-5).  
-                                - **Review Comment Title**: The title of the review comment.  
-                                - **Review Comment Message**: The content of the review message.  
-                                - **Review Creation Date**: The date and time the review was created.  
-                                - **Review Answer Timestamp**: The date and time when a response was given to the review.
-            
-                                ### 5. **Customers**  
-                                - **Customer ID**: A unique identifier for the customer (UUID).  
-                                - **Customer Unique ID**: Another unique identifier for the customer.  
-                                - **Customer Zip Code Prefix**: The zip code prefix for the customer's location.  
-                                - **Customer City**: The city where the customer resides.  
-                                - **Customer State**: The state where the customer resides.
-            
-                                ### 6. **Sellers**  
-                                - **Seller ID**: A unique identifier for the seller (UUID).  
-                                - **Seller Zip Code Prefix**: The zip code prefix for the seller's location.  
-                                - **Seller City**: The city where the seller resides.  
-                                - **Seller State**: The state where the seller resides.
-            
-                                ### 7. **Products**  
-                                - **Product ID**: A unique identifier for the product (UUID).  
-                                - **Product Category Name**: The category to which the product belongs.  
-                                - **Product Name Length**: The length of the product name.  
-                                - **Product Description Length**: The length of the product description.  
-                                - **Product Photos Quantity**: The number of photos available for the product.  
-                                - **Product Weight**: The weight of the product in grams.  
-                                - **Product Length**: The length of the product in centimeters.  
-                                - **Product Height**: The height of the product in centimeters.  
-                                - **Product Width**: The width of the product in centimeters.
-            
-                                ### 8. **Geolocation**  
-                                - **Geolocation Zip Code Prefix**: The zip code prefix for the geolocation.  
-                                - **Geolocation Latitude**: The latitude of the geolocation.  
-                                - **Geolocation Longitude**: The longitude of the geolocation.  
-                                - **Geolocation City**: The city of the geolocation.  
-                                - **Geolocation State**: The state of the geolocation.
-            
+                               
                                 ---
+                                     Table name: orders 
+                                     Column names:      
+                                           string order_id - contains the unique order id in the format of UUID
+                                           string customer_id - references the customer id
+                                           string order_status - status of the order such as delivered, processing
+                                           datetime order_purchase_timestamp - purchase date and time
+                                           datetime order_approved_at - approved date and time
+                                           datetime order_delivered_carrier_date - order delivery date and time to carrier
+                                           datetime order_delivered_customer_date - order delivery date and time to customer
+                                           datetime order_estimated_delivery_date - estimated delivery date to customer
+                                       }
             
+                                     Table name: order_items 
+                                     Column names: 
+                                           string order_id - references the order id
+                                           int order_item_id - unique order item id in the format of UUID
+                                           string product_id - references the product id
+                                           string seller_id - references the seller id
+                                           datetime shipping_limit_date - shipping limit date and time
+                                           float price - price of the order item
+                                           float freight_value - total price paid for the cargo
+                                      
+            
+                                     Table name: order_payments 
+                                     Column names: 
+                                           string order_id - references the order id
+                                           int payment_sequential - unique payment sequential id in the format of UUID
+                                           string payment_type - type of payment such as credit_card, debit_card, boleto
+                                           int payment_installments - number of payment installments
+                                           float payment_value - total value of the payment has done
+                                      
+            
+                                     Table name: order_reviews 
+                                     Column names:  
+                                           string review_id - unique review id in the format of UUID
+                                           string order_id -  references the order id
+                                           int review_score - score of the review
+                                           string review_comment_title - title of the review
+                                           string review_comment_message - message of the review
+                                           datetime review_creation_date - date and time of the review creation
+                                           datetime review_answer_timestamp - date and time of the review answer
+            
+                                     Table name: customers 
+                                     Column names:    
+                                           string customer_id - unique customer id in the format of UUID
+                                           string customer_unique_id - unique customer id
+                                           string customer_zip_code_prefix - zip code prefix of the customer
+                                           string customer_city - details of the city where customer lives
+                                           string customer_state - details of state where the customer lives
+                                      
+            
+                                     Table name: sellers 
+                                     Column names:   
+                                           string seller_id - unique seller id in the format of UUID
+                                           string seller_zip_code_prefix - zip code prefix of the seller
+                                           string seller_city - details of the city where seller lives
+                                           string seller_state - details of state where the seller lives
+                                       
+            
+                                     Table name: products 
+                                     Column names: 
+                                           string product_id - unique product id in the format of UUID
+                                           string product_category_name - name of the product
+                                           int product_name_length - length of the product name
+                                           int product_description_length - length of the product description
+                                           int product_photos_qty - number of photos for the product
+                                           float product_weight_g - weight of the product in grams
+                                           float product_length_cm - length of the product in centimeters
+                                           float product_height_cm - height of the product in centimeters
+                                           float product_width_cm -  width of the product in centimeters
+                                       
+            
+                                     Table name: geolocation 
+                                     Column names:  
+                                           string geolocation_zip_code_prefix - zip code prefix of the geolocation
+                                           float geolocation_lat - latitude of the geolocation
+                                           float geolocation_lng - longitude of the geolocation
+                                           string geolocation_city - details of the city
+                                           string geolocation_state - details of the state
+                                    
                                 ### Relationships:
             
                                 - **Orders** contain **Order Items**, **Order Payments**, and **Order Reviews**.  
@@ -123,10 +136,12 @@ public class AIService {
                                  - Use the LIKE operator for city and state in WHERE clauses
                                  - Use GROUP BY and aggregate functions if the question involves summarizing data
                                  - Add ORDER BY if a specific sorting is requested or implied
+                                 - Generated query should be valid SQL syntax and executable in plsql
             
                               3. Optimize the query:
                                  - Use appropriate indexing when filtering or joining tables
                                  - Avoid using SELECT * unless absolutely necessary
+                                 - No extra or invalid characters are in your query, especially around the use of parameterized queries
                                  - Use table aliases for readability and to avoid ambiguity in column names
                                  - Consider using subqueries or CTEs (Common Table Expressions) for complex queries
             
@@ -155,7 +170,7 @@ public class AIService {
             SystemPromptTemplate systemPromptTemplate = new SystemPromptTemplate(PROMPT);
             Message systemMessage = systemPromptTemplate.createMessage();
 
-            Prompt prompt = new Prompt(List.of(userMessage, systemMessage));
+            Prompt prompt = new Prompt(List.of(systemMessage,userMessage));
 
             // call the Open AI chat model
             String response = chatModel.call(prompt).getResult().getOutput().getText();
