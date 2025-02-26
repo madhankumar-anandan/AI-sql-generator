@@ -136,12 +136,12 @@ public class AIService {
                                  - Use the LIKE operator for city and state in WHERE clauses
                                  - Use GROUP BY and aggregate functions if the question involves summarizing data
                                  - Add ORDER BY if a specific sorting is requested or implied
-                                 - Generated query should be valid SQL syntax and executable in plsql
+                                 - Generated query should be valid SQL syntax and executable in sql lite database
             
                               3. Optimize the query:
                                  - Use appropriate indexing when filtering or joining tables
                                  - Avoid using SELECT * unless absolutely necessary
-                                 - No extra or invalid characters are in your query, especially around the use of parameterized queries
+                                 - No extra or invalid characters are in your query, such as extra double colon (::)
                                  - Use table aliases for readability and to avoid ambiguity in column names
                                  - Consider using subqueries or CTEs (Common Table Expressions) for complex queries
             
