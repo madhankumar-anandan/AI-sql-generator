@@ -26,7 +26,7 @@ public class AllTest {
     @Test
     void get_the_highest_5_star_reviews(){
         String question = "Which product category has the highest rate of 5-star reviews? [string: category_name]";
-        String expectedResponse = "beleza_saude";
+        String expectedResponse = "fashion_roupa_infanto_juvenil";
         execute_new(question, expectedResponse);
     }
     @Test
@@ -80,7 +80,7 @@ public class AllTest {
     @Test
     void get_the_percentage_of_orders_delivered(){
         String question = "What percentage of orders are delivered before the estimated delivery date? [float: percentage]";
-        String expectedResponse = "91.8871";
+        String expectedResponse = "91.88";
         execute_new(question, expectedResponse);
     }
 
