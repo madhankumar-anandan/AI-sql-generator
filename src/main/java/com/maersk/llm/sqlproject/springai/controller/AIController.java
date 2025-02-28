@@ -24,7 +24,7 @@ public class AIController {
      * @return a ResponseEntity containing the generated SQL query or an error message
      */
     @PostMapping("/query")
-    public ResponseEntity<String> generateSqlQuery(@RequestBody AIQuestionRequest request) {
+    public ResponseEntity<?> generateSqlQuery(@RequestBody AIQuestionRequest request) {
         try {
             String question = request.getQuestion().trim();
             if(question == null || question.isEmpty()) {

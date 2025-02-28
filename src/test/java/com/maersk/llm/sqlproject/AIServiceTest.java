@@ -1,6 +1,7 @@
 package com.maersk.llm.sqlproject;
 
 
+import com.maersk.llm.sqlproject.springai.Model.AIQuestionResponse;
 import com.maersk.llm.sqlproject.springai.service.AIService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -33,7 +34,7 @@ class AIServiceTest {
     private EntityManager entityManager;
 
     @InjectMocks
-    private AIService AIService;
+    private AIService aiService;
 
     @BeforeEach
     void setUp() {
@@ -78,19 +79,20 @@ class AIServiceTest {
 
         // Mock behavior of the entityManager to return a Query object
         Query query = mock(Query.class);
+        when(query.getResultList()).thenReturn(List.of("10"));
         when(entityManager.createNativeQuery(any(String.class))).thenReturn(query);
 
-        String result = AIService.generateSqlQuery(question);
+        AIQuestionResponse result = aiService.generateSqlQuery(question);
 
-        assertNotNull(result);
-        assertTrue(result.contains("SQL query generated and executed successfully"));
+        assertTrue(result.getMessage().contains("SQL query generated and executed successfully"));
+        assertTrue(result.getDbResult().matches("10"));
     }
 
     @Test
     void generateSqlQuery_invalidQuestion_returnsNull() {
         String question = "";
         when(chatModel.call(any(Prompt.class))).thenThrow(new RuntimeException("Invalid question"));
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> AIService.generateSqlQuery(question));
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> aiService.generateSqlQuery(question));
         assertTrue(exception.getMessage().contains("Error generating the sql query"));
     }
 
@@ -99,18 +101,17 @@ class AIServiceTest {
         // Mock behavior of the entityManager to return a Query object
         String sql = "SELECT * FROM orders";
         Query query = mock(Query.class);
+        when(query.getResultList()).thenReturn(List.of("10"));
         when(entityManager.createNativeQuery(sql)).thenReturn(query);
-        when(query.getResultList()).thenReturn(Collections.emptyList());
-        assertDoesNotThrow(() -> AIService.executeSQLQuery(sql));
-        verify(entityManager).createNativeQuery(sql);
-        verify(query).getResultList();
+        String result = aiService.executeSQLQuery(sql);
+        assertTrue(result.matches("10"));
     }
 
     @Test
     void executeSQLQuery_invalidSql_throwsException() {
         String sql = "INVALID SQL";
         when(entityManager.createNativeQuery(sql)).thenThrow(new RuntimeException("SQL error"));
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> AIService.executeSQLQuery(sql));
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> aiService.executeSQLQuery(sql));
         assertTrue(exception.getMessage().contains("SQL error"));
     }
 }
